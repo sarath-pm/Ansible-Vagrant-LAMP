@@ -1,0 +1,25 @@
+---
+# CentOS 8 LAMP Stack
+# Author: Sarath P M
+# Version: 1.0.0
+
+- name: Apply common configuration to all the nodes
+  hosts: all
+  remote_user: root
+
+  roles:
+   - common
+   
+- name: Deploy MySQL and configure databases
+  hosts: dbservers
+  remote_user: root
+   
+  roles:
+   - db
+   
+- name: Deploy Apache, PHP and configure website code
+  hosts: webservers
+  remote_user: root
+   
+  roles:
+   - web

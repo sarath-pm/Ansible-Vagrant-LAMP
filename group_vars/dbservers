@@ -1,0 +1,8 @@
+---
+# Database system variables
+mysqlservice: mysqld
+mysql_port: 3306
+dbuser: root
+dbname: lifestylestore
+upassword: Userpasswd@12345
+masterpassword: Rootpasswd@12345

@@ -1,0 +1,7 @@
+[webservers]
+# ipaddress or hostname of the webservers 
+192.168.10.20
+
+[dbservers]
+# ipaddress or hostname of the dbservers
+192.168.10.21

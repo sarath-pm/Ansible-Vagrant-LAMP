@@ -1,0 +1,23 @@
+---
+# Playbook for Web Server
+
+- name: Install Epel-release repo
+  dnf: name=epel-release state=latest
+
+- name: Install httpd, php and git packages
+  dnf:
+    name:
+      - httpd
+      - git
+      - php
+      - php-cli
+      - php-common
+    state: latest
+
+- name: Start & enable httpd services
+  service: name=httpd state=started enabled=yes
+
+- name: Enable the firewall port for Apache
+  firewalld: port=80/tcp permanent=true state=enabled immediate=yes
+
+- include: copy_code.yml

@@ -1,0 +1,52 @@
+---
+# Playbook to perform MySQL installations.
+
+- name: Install Python3
+  dnf:
+    name: python3
+    state: present
+
+- name: install python mysql
+  dnf:
+    name:
+      - python3-PyMySQL
+      - mysql-server
+      - mysql
+    state: present
+
+- name: service
+  service:
+    name: mysqld
+    state: started
+    enabled: true
+
+- name: root mysql
+  mysql_user:
+    login_user: root
+    login_password: "{{ masterpassword }}"
+    name: root
+    password: "{{ masterpassword }}"
+    check_implicit_admin: true
+
+- name: install .my.cnf with credentials
+  template: src=my.cnf.j2 dest=/root/.my.cnf
+            mode=0400
+  tags: my_cnf
+
+- name: Create the database for website
+  mysql_db: name={{ dbname }} state=present
+
+- name: Create the Application user for the database
+  mysql_user: name={{ dbuser }} password={{ upassword }} priv='*.*:ALL' host='%' state=present
+
+- name: Copy SQL file
+  shell: cp /var/www/html/sql/*.sql /tmp/lifestylestore.sql
+
+- name: create a new database
+  mysql_db: name={{ dbname}} state=present login_user=root login_password={{ masterpassword }}
+
+- name: Create Table with data
+  shell: mysql -u root -p {{ masterpassword }} {{ dbname }} < /tmp/lifestylestore.sql
+
+- name: Enable the firewall port for MySQL
+  firewalld: port={{ mysql_port }}/tcp permanent=true state=enabled immediate=yes
