@@ -1,6 +1,6 @@
 # Ansible-Vagrant-LAMP
 
-Hey Folks! I've create an Ansible Playbook to set up LAMP on CentOS 8 using Vagrant and automate changes to the server's dev/prod code.
+Hey Everyone! I've created an Ansible Playbook to set up LAMP on CentOS 8 using Vagrant and automate changes to the server's dev/prod code.
 
 I've automated my [website](https://github.com/sarath-pm/Lifestyle-Retail-Website) with the code in this repository, which you may modify in the [group_vars](https://github.com/sarath-pm/Ansible-Vagrant-LAMP/tree/master/group_vars) to suit your needs. 
 
